@@ -1,4 +1,4 @@
-package com.example.passwordmanager.ui.screen.login
+package com.example.passwordmanager.ui.screen.register
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -34,22 +34,22 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun LoginScreen (viewModel: LoginViewModel){
+fun RegisterScreen (viewModel: RegisterViewModel){
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        Login(Modifier.align(Alignment.Center), viewModel)
+        Register(Modifier.align(Alignment.Center), viewModel)
     }
 }
 
 @Composable
-fun Login(modifier: Modifier , viewModel: LoginViewModel){
+fun Register(modifier: Modifier , viewModel: RegisterViewModel){
 
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
-    val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = false)
+    val registerEnable: Boolean by viewModel.registerEnable.observeAsState(initial = false)
 
     val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
@@ -77,10 +77,10 @@ fun Login(modifier: Modifier , viewModel: LoginViewModel){
             PasswordField(password) { viewModel.onLoginChange(email , it) }
             Spacer(modifier = Modifier.padding(8.dp))
 
-            ForgotPassword(Modifier.align(Alignment.End))
+            AccountExist(Modifier.align(Alignment.End))
             Spacer(modifier = Modifier.padding(32.dp))
 
-            LoginButton(loginEnable) {
+            RegisterButton(registerEnable) {
                 coroutineScope.launch {
                     viewModel.onLoginSelect()
                 }
@@ -93,21 +93,21 @@ fun Login(modifier: Modifier , viewModel: LoginViewModel){
 }
 
 @Composable
-fun LoginButton(loginEnable: Boolean , onLoginSelect: () -> Unit) {
+fun RegisterButton(registerEnable: Boolean , onLoginSelect: () -> Unit) {
     Button(
         onClick = { onLoginSelect() },
         modifier = Modifier.fillMaxWidth(),
-        enabled = loginEnable,
+        enabled = registerEnable,
     )
     {
-        Text(text = "Iniciar Sesión")
+        Text(text = "Registrarse")
     }
 }
 
 @Composable
-fun ForgotPassword(modifier: Modifier) {
+fun AccountExist(modifier: Modifier) {
     Text(
-        text = "¿No tienes una cuenta?",
+        text = "¿Ya tienes una cuenta?",
         fontWeight = FontWeight.Bold,
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier.clickable { /*TODO*/ },
@@ -130,7 +130,7 @@ fun PasswordField(password: String , onTextFieldChange: (String) -> Unit) {
 fun HeaderImage(modifier: Modifier) {
     Image(
         painter = painterResource(id = R.drawable.logo_app ) , contentDescription = "Header Image",
-        modifier = modifier.clip(RoundedCornerShape(16.dp))
+        modifier = modifier.clip(RoundedCornerShape(16.dp)),
     )
 
 }
@@ -138,7 +138,7 @@ fun HeaderImage(modifier: Modifier) {
 @Composable
 fun HeaderText(modifier: Modifier = Modifier) {
     Text(
-        text = "Bienvenido a Password Manager",
+        text = "Crea tu cuenta",
         fontWeight = FontWeight.Bold,
         fontSize = MaterialTheme.typography.titleLarge.fontSize,
         color = MaterialTheme.colorScheme.primary,
