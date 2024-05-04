@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.passwordmanager.ui.screen.login.LoginScreen
+import com.example.passwordmanager.ui.screen.login.LoginViewModel
 import com.example.passwordmanager.ui.theme.PasswordManagerTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PasswordManagerTheme {
-                    LoginScreen()
+                    LoginScreen( LoginViewModel())
             }
         }
     }
