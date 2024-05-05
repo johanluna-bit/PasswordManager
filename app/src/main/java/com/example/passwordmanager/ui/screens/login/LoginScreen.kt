@@ -1,4 +1,4 @@
-package com.example.passwordmanager.ui.screen.login
+package com.example.passwordmanager.ui.screens.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

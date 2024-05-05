@@ -1,4 +1,4 @@
-package com.example.passwordmanager.ui.screen.register
+package com.example.passwordmanager.ui.screens.register
 
 import android.util.Patterns
 import androidx.lifecycle.LiveData

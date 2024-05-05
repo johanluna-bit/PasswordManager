@@ -4,17 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.passwordmanager.ui.screen.login.LoginScreen
-import com.example.passwordmanager.ui.screen.login.LoginViewModel
-import com.example.passwordmanager.ui.screen.register.RegisterScreen
-import com.example.passwordmanager.ui.screen.register.RegisterViewModel
+import com.example.passwordmanager.navigation.AppNavigation
+import com.example.passwordmanager.ui.screens.login.LoginScreen
+import com.example.passwordmanager.ui.screens.login.LoginViewModel
 import com.example.passwordmanager.ui.theme.PasswordManagerTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,8 +15,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PasswordManagerTheme {
-                    //RegisterScreen(RegisterViewModel())
-                LoginScreen(LoginViewModel())
+
+                //Controlador de la navegación
+                AppNavigation()
+
             }
         }
     }
