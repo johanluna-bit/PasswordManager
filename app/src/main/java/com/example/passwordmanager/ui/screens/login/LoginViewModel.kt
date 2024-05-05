@@ -4,6 +4,9 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.passwordmanager.navigation.AppScreens
 import kotlinx.coroutines.delay
 
 class LoginViewModel: ViewModel() {
@@ -33,11 +36,19 @@ class LoginViewModel: ViewModel() {
     //Validaciones
     private fun isValidPassword(password: String): Boolean = password.length > 5
     private fun isValidEmail (email:String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    suspend fun onLoginSelect() {
+    suspend fun onLoginSelect(navController: NavHostController) {
+
 
         _isLoading.value = true
-        delay(4000)
+        delay(3000)
+        navController.popBackStack()
         _isLoading.value = false
+        _loginEnable.value = false
+        _email.value = ""
+        _password.value = ""
+
+
+        navController.navigate(AppScreens.MainScreen.route)
     }
 
 }

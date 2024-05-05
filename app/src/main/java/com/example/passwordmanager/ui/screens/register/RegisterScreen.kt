@@ -5,16 +5,22 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -91,7 +97,7 @@ fun Register(modifier: Modifier , viewModel: RegisterViewModel , navController: 
 
             RegisterButton(registerEnable) {
                 coroutineScope.launch {
-                    viewModel.onLoginSelect()
+                    viewModel.onLoginSelect(navController)
                 }
 
             }
@@ -103,7 +109,7 @@ fun Register(modifier: Modifier , viewModel: RegisterViewModel , navController: 
 
 @Composable
 fun RegisterButton(registerEnable: Boolean , onLoginSelect: () -> Unit) {
-    
+
     Button(
         onClick = { onLoginSelect() },
         modifier = Modifier.fillMaxWidth(),
@@ -127,14 +133,27 @@ fun AccountExist(modifier: Modifier, navController: NavHostController) {
 
 @Composable
 fun PasswordField(password: String , onTextFieldChange: (String) -> Unit) {
-    TextField(
-        value = password , onValueChange = { onTextFieldChange(it)},
-        modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Contraseña") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        singleLine = true,
-        maxLines = 1,
-    )
+
+    Row {
+        Icon(
+            imageVector = Icons.Filled.Lock ,
+            contentDescription = "Email Icon" ,
+            tint = MaterialTheme.colorScheme.primary ,
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding(end = 6.dp)
+                .size(40.dp)
+        )
+
+        TextField(
+            value = password , onValueChange = { onTextFieldChange(it) } ,
+            modifier = Modifier.fillMaxWidth() ,
+            placeholder = { Text(text = "Contraseña") } ,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password) ,
+            singleLine = true ,
+            maxLines = 1 ,
+        )
+    }
 }
 
 @Composable
@@ -161,12 +180,24 @@ fun HeaderText(modifier: Modifier = Modifier) {
 @Composable
 fun EmailField(email:String, onTextFieldChange: (String) -> Unit ) {
 
-    TextField(
-        value = email , onValueChange = {onTextFieldChange(it)},
-        modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Email") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-        singleLine = true,
-        maxLines = 1,
-    )
+    Row {
+        Icon(
+            imageVector = Icons.Filled.Email ,
+            contentDescription = "Email Icon" ,
+            tint = MaterialTheme.colorScheme.primary ,
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding(end = 6.dp)
+                .size(40.dp)
+        )
+
+        TextField(
+            value = email , onValueChange = { onTextFieldChange(it) } ,
+            modifier = Modifier.fillMaxWidth() ,
+            placeholder = { Text(text = "Email") } ,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email) ,
+            singleLine = true ,
+            maxLines = 1 ,
+        )
+    }
 }
