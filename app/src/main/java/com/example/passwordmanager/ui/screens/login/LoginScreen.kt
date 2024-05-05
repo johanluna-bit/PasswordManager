@@ -28,24 +28,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.passwordmanager.R
+import com.example.passwordmanager.navigation.AppScreens
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
 @Composable
-fun LoginScreen (viewModel: LoginViewModel){
+fun LoginScreen (viewModel: LoginViewModel, navController: NavHostController){
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        Login(Modifier.align(Alignment.Center), viewModel)
+        Login(Modifier.align(Alignment.Center), viewModel, navController)
     }
 }
 
 @Composable
-fun Login(modifier: Modifier , viewModel: LoginViewModel){
+fun Login(modifier: Modifier , viewModel: LoginViewModel, navController: NavHostController){
 
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
@@ -77,7 +79,7 @@ fun Login(modifier: Modifier , viewModel: LoginViewModel){
             PasswordField(password) { viewModel.onLoginChange(email , it) }
             Spacer(modifier = Modifier.padding(8.dp))
 
-            ForgotPassword(Modifier.align(Alignment.End))
+            NotAccountAlready(Modifier.align(Alignment.End), navController)
             Spacer(modifier = Modifier.padding(32.dp))
 
             LoginButton(loginEnable) {
@@ -105,12 +107,13 @@ fun LoginButton(loginEnable: Boolean , onLoginSelect: () -> Unit) {
 }
 
 @Composable
-fun ForgotPassword(modifier: Modifier) {
+fun NotAccountAlready(modifier: Modifier, navController: NavHostController) {
     Text(
         text = "¿No tienes una cuenta?",
         fontWeight = FontWeight.Bold,
         color = MaterialTheme.colorScheme.primary,
-        modifier = modifier.clickable { /*TODO*/ },
+        modifier = modifier.clickable {
+            navController.navigate(AppScreens.RegisterScreen.route)},
     )
 }
 

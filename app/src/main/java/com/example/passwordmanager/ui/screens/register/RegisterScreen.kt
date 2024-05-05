@@ -1,5 +1,6 @@
 package com.example.passwordmanager.ui.screens.register
 
+import android.window.SplashScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -28,24 +30,31 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.passwordmanager.R
+import com.example.passwordmanager.Splash
+import com.example.passwordmanager.SplashScreen
+import com.example.passwordmanager.navigation.AppScreens
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 @Composable
-fun RegisterScreen (viewModel: RegisterViewModel){
+fun RegisterScreen (viewModel: RegisterViewModel, navController: NavHostController){
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        Register(Modifier.align(Alignment.Center), viewModel)
+        Register(Modifier.align(Alignment.Center), viewModel, navController)
+
     }
 }
 
 @Composable
-fun Register(modifier: Modifier , viewModel: RegisterViewModel){
+fun Register(modifier: Modifier , viewModel: RegisterViewModel , navController: NavHostController ,){
 
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
@@ -77,7 +86,7 @@ fun Register(modifier: Modifier , viewModel: RegisterViewModel){
             PasswordField(password) { viewModel.onLoginChange(email , it) }
             Spacer(modifier = Modifier.padding(8.dp))
 
-            AccountExist(Modifier.align(Alignment.End))
+            AccountExist(Modifier.align(Alignment.End), navController)
             Spacer(modifier = Modifier.padding(32.dp))
 
             RegisterButton(registerEnable) {
@@ -94,6 +103,7 @@ fun Register(modifier: Modifier , viewModel: RegisterViewModel){
 
 @Composable
 fun RegisterButton(registerEnable: Boolean , onLoginSelect: () -> Unit) {
+    
     Button(
         onClick = { onLoginSelect() },
         modifier = Modifier.fillMaxWidth(),
@@ -105,12 +115,13 @@ fun RegisterButton(registerEnable: Boolean , onLoginSelect: () -> Unit) {
 }
 
 @Composable
-fun AccountExist(modifier: Modifier) {
+fun AccountExist(modifier: Modifier, navController: NavHostController) {
     Text(
         text = "¿Ya tienes una cuenta?",
         fontWeight = FontWeight.Bold,
         color = MaterialTheme.colorScheme.primary,
-        modifier = modifier.clickable { /*TODO*/ },
+        modifier = modifier.clickable { navController.navigate(AppScreens.LoginScreen.route) },
+
     )
 }
 
@@ -157,6 +168,5 @@ fun EmailField(email:String, onTextFieldChange: (String) -> Unit ) {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         singleLine = true,
         maxLines = 1,
-
     )
 }

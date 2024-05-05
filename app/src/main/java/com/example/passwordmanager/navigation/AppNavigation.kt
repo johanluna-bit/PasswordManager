@@ -7,6 +7,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.passwordmanager.SplashScreen
 import com.example.passwordmanager.ui.screens.login.LoginScreen
 import com.example.passwordmanager.ui.screens.login.LoginViewModel
+import com.example.passwordmanager.ui.screens.register.RegisterScreen
+import com.example.passwordmanager.ui.screens.register.RegisterViewModel
 
 
 @Composable
@@ -25,7 +27,11 @@ fun AppNavigation(){
 
         //Ruta para LoginScreen a MainScreen
         composable(AppScreens.LoginScreen.route){
-            LoginScreen(viewModel = LoginViewModel())
+            LoginScreen(viewModel = LoginViewModel(), navController)
+        }
+
+        composable(AppScreens.RegisterScreen.route){
+            RegisterScreen(viewModel = RegisterViewModel(), navController)
         }
 
     }
