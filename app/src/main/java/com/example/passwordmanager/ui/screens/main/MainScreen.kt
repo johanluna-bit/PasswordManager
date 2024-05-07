@@ -2,9 +2,10 @@ package com.example.passwordmanager.ui.screens.main
 
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
@@ -12,54 +13,91 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(viewModel: MainViewModel, navController: NavHostController, modifier: Modifier = Modifier){
+fun MainScreen(viewModel: MainViewModel, navController: NavHostController ){
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Password Manager") },
-                navigationIcon = { Icon(imageVector = Icons.Filled.Menu, contentDescription ="Menu Icon" ) }
-            )
-        },
+        topBar = { TopBar()},
+        content = { BodyContent()},
+        floatingActionButton = { FloatingActionButton() },
 
-        floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Filled.AddCircle , contentDescription ="Add Icon" )
-            }
-        }
-
-    ){ContentPadding ->
-
-        BodyContent(modifier = Modifier.padding(ContentPadding))
-        Text(text = "Content")
-    }
+    )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar() {
-    TODO("Not yet implemented")
+    TopAppBar(
+        colors = TopAppBarDefaults.smallTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+        ),
+
+        title = {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "Password Manager",
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+            )},
+
+        navigationIcon = {
+            Icon(
+                imageVector = Icons.Filled.Menu,
+                contentDescription ="Menu Icon",
+
+                modifier = Modifier
+                    .padding(start = 13.dp)
+                    .size(35.dp)
+                    .fillMaxWidth(),
+            )
+        }
+    )
 }
 
 @Composable
-fun BodyContent(modifier: Modifier = Modifier){
-    Column(modifier = Modifier.fillMaxSize()){
-        Text(text = "Contenido del Cuerpo")
+fun FloatingActionButton(){
+    FloatingActionButton(
+        containerColor = MaterialTheme.colorScheme.primary,
+        onClick = { /*TODO*/ }
+    ) {
+        Icon(
+            imageVector = Icons.Filled.AddCircle,
+            contentDescription = "Add Icon",
+            modifier = Modifier
+                .padding(24.dp)
+                .size(35.dp)
+        )
     }
 }
 
-@Preview( showBackground = true,showSystemUi = true)
+@Composable
+fun BodyContent() {
+
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+    ){
+        item{ Text(text = "Password Manager")}
+    }
+}
+
+@Preview(showBackground = true)
 @Composable
 fun MainScreenPreview(){
-
+    MainScreen(viewModel = MainViewModel(), navController = NavHostController(LocalContext.current))
 }
