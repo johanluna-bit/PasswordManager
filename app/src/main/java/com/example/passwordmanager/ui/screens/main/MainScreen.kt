@@ -2,6 +2,8 @@ package com.example.passwordmanager.ui.screens.main
 
 
 import android.annotation.SuppressLint
+import android.service.autofill.OnClickAction
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -41,7 +43,7 @@ fun MainScreen(viewModel: MainViewModel, navController: NavHostController ){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar() {
+private fun TopBar() {
     TopAppBar(
         colors = TopAppBarDefaults.smallTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary,
@@ -56,22 +58,26 @@ fun TopBar() {
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,
             )},
 
-        navigationIcon = {
-            Icon(
-                imageVector = Icons.Filled.Menu,
-                contentDescription ="Menu Icon",
-
-                modifier = Modifier
-                    .padding(start = 13.dp)
-                    .size(35.dp)
-                    .fillMaxWidth(),
-            )
-        }
+        navigationIcon = { MenuButton()}
     )
 }
 
 @Composable
-fun FloatingActionButton(){
+private fun MenuButton(){
+    Icon(
+        imageVector = Icons.Filled.Menu,
+        contentDescription ="Menu Icon",
+
+        modifier = Modifier
+            .padding(start = 13.dp)
+            .size(35.dp)
+            .fillMaxWidth()
+            .clickable{ },
+    )
+}
+
+@Composable
+private fun FloatingActionButton(){
     FloatingActionButton(
         containerColor = MaterialTheme.colorScheme.primary,
         onClick = { /*TODO*/ }
@@ -87,7 +93,7 @@ fun FloatingActionButton(){
 }
 
 @Composable
-fun BodyContent() {
+private fun BodyContent() {
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
