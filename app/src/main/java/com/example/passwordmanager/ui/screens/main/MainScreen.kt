@@ -2,7 +2,6 @@ package com.example.passwordmanager.ui.screens.main
 
 
 import android.annotation.SuppressLint
-import android.service.autofill.OnClickAction
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,16 +27,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.passwordmanager.navigation.AppScreens
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(viewModel: MainViewModel, navController: NavHostController ){
 
     Scaffold(
+
         topBar = { TopBar()},
         content = { BodyContent()},
-        floatingActionButton = { FloatingActionButton() },
-
+        floatingActionButton = { AddButton(navController) },
     )
 }
 
@@ -45,10 +46,10 @@ fun MainScreen(viewModel: MainViewModel, navController: NavHostController ){
 @Composable
 private fun TopBar() {
     TopAppBar(
+        modifier = Modifier.fillMaxWidth(),
         colors = TopAppBarDefaults.smallTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary,
         ),
-
         title = {
             Text(
                 modifier = Modifier.fillMaxWidth(),
@@ -72,15 +73,15 @@ private fun MenuButton(){
             .padding(start = 13.dp)
             .size(35.dp)
             .fillMaxWidth()
-            .clickable{ },
+            .clickable { },
     )
 }
 
 @Composable
-private fun FloatingActionButton(){
+private fun AddButton(navController: NavHostController) {
     FloatingActionButton(
         containerColor = MaterialTheme.colorScheme.primary,
-        onClick = { /*TODO*/ }
+        onClick = { navController.navigate(AppScreens.AddScreen.route) }
     ) {
         Icon(
             imageVector = Icons.Filled.AddCircle,
@@ -95,8 +96,10 @@ private fun FloatingActionButton(){
 @Composable
 private fun BodyContent() {
 
+    Text(text = "Text")
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .padding(top = 100.dp, start = 16.dp, end = 16.dp),
     ){
         item{ Text(text = "Password Manager")}
     }
@@ -106,4 +109,5 @@ private fun BodyContent() {
 @Composable
 fun MainScreenPreview(){
     MainScreen(viewModel = MainViewModel(), navController = NavHostController(LocalContext.current))
+
 }

@@ -5,6 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.passwordmanager.SplashScreen
+import com.example.passwordmanager.ui.screens.add.AddScreen
+import com.example.passwordmanager.ui.screens.add.AddViewModel
 import com.example.passwordmanager.ui.screens.login.LoginScreen
 import com.example.passwordmanager.ui.screens.login.LoginViewModel
 import com.example.passwordmanager.ui.screens.main.MainScreen
@@ -38,6 +40,10 @@ fun AppNavigation(){
 
         composable(AppScreens.MainScreen.route){
             MainScreen(viewModel = MainViewModel(), navController)
+        }
+
+        composable(AppScreens.AddScreen.route){
+            AddScreen(viewModel = AddViewModel() , navController)
         }
 
     }

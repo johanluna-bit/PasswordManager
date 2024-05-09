@@ -38,12 +38,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.passwordmanager.R
 import com.example.passwordmanager.navigation.AppScreens
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
 
 
 @Composable
@@ -129,6 +131,7 @@ fun NotAccountAlready(modifier: Modifier, navController: NavHostController) {
     )
 }
 
+
 @Composable
 fun PasswordField(password: String , onTextFieldChange: (String) -> Unit) {
 
@@ -150,6 +153,7 @@ fun PasswordField(password: String , onTextFieldChange: (String) -> Unit) {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password) ,
             singleLine = true ,
             maxLines = 1 ,
+
         )
     }
 }
