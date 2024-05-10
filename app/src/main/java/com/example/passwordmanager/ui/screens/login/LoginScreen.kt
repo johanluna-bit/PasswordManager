@@ -146,10 +146,11 @@ fun PasswordField(password: String , onTextFieldChange: (String) -> Unit) {
 
     var passwordVisibility by rememberSaveable { mutableStateOf(false) }
 
-    val icon = if (passwordVisibility){
-        Icons.Filled.Clear
+    val icon =
+        if (passwordVisibility){
+        painterResource(id = R.drawable.password_eye_hiden)
     }else{
-        Icons.Filled.Face
+        painterResource(id = R.drawable.password_eye_open)
     }
 
     Row {
@@ -176,7 +177,11 @@ fun PasswordField(password: String , onTextFieldChange: (String) -> Unit) {
                     onClick = {
                     passwordVisibility = !passwordVisibility
                 }) {
-                    Icon(imageVector = icon, contentDescription = "visibilityIcon")
+                    Icon(
+                        painter = icon,
+                        contentDescription = "Password Icon",
+                        Modifier.size( 30.dp)
+                    )
                 }
             },
             visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation()
