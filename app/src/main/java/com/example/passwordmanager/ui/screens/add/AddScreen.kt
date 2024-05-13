@@ -45,7 +45,7 @@ fun AddScreen( viewModel: AddViewModel, navController: NavHostController){
     Scaffold (
         topBar = { TopBar(navController) },
         content = { BodyContent() },
-        floatingActionButton = { SaveButton() }
+        floatingActionButton = { SaveButton(navController) }
     )
 }
 
@@ -76,10 +76,10 @@ private  fun TopBar(navController: NavHostController) {
 }
 
 @Composable
-private fun SaveButton() {
+private fun SaveButton( navController: NavHostController) {
     FloatingActionButton(
         containerColor = MaterialTheme.colorScheme.primary,
-        onClick = { /*TODO*/ }
+        onClick = { navController.navigate(AppScreens.MainScreen.route) }
     ) {
         Icon(
             imageVector = Icons.Filled.Done,
