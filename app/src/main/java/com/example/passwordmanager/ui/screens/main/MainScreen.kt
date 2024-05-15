@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -28,11 +29,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -46,13 +49,16 @@ import androidx.navigation.NavHostController
 import com.example.passwordmanager.navigation.AppScreens
 
 
+
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(viewModel: MainViewModel, navController: NavHostController ){
 
+
     Scaffold(
 
-        topBar = { TopBar()},
+        topBar = { TopBar(navController)},
         content = { BodyContent(viewModel, navController)},
         floatingActionButton = { AddButton(navController) },
     )
@@ -60,7 +66,7 @@ fun MainScreen(viewModel: MainViewModel, navController: NavHostController ){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopBar() {
+private fun TopBar(navController: NavHostController) {
     TopAppBar(
         modifier = Modifier.fillMaxWidth(),
         colors = TopAppBarDefaults.smallTopAppBarColors(
@@ -75,12 +81,12 @@ private fun TopBar() {
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,
             )},
 
-        navigationIcon = { MenuButton()}
+        navigationIcon = { MenuButton(navController)}
     )
 }
 
 @Composable
-private fun MenuButton(){
+private fun MenuButton(navController: NavHostController){
     Icon(
         imageVector = Icons.Filled.Menu,
         contentDescription ="Menu Icon",
@@ -89,7 +95,7 @@ private fun MenuButton(){
             .padding(start = 13.dp)
             .size(35.dp)
             .fillMaxWidth()
-            .clickable { },
+            .clickable { navController.navigate(AppScreens.OptionScreen.route) },
     )
 }
 
