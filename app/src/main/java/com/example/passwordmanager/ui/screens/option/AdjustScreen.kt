@@ -14,10 +14,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -50,7 +53,7 @@ import com.example.passwordmanager.navigation.AppScreens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun OptionScreen(navController: NavHostController){
+fun AdjustScreen(navController: NavHostController){
     Scaffold (
         topBar = { TopBar(navController) },
         content = { BodyContent(navController) },
@@ -69,7 +72,7 @@ private  fun TopBar(navController: NavHostController) {
         title = {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Opciones",
+                text = "Ajustes",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -92,7 +95,10 @@ private fun GoBackButton(navController: NavHostController) {
             .padding(start = 13.dp)
             .size(35.dp)
             .fillMaxWidth()
-            .clickable { navController.navigate(AppScreens.MainScreen.route) },
+            .clickable {
+                navController.popBackStack()
+                navController.navigate(AppScreens.OptionScreen.route)
+            },
     )
 }
 
@@ -106,30 +112,30 @@ private fun BodyContent(navController: NavHostController){
             .padding(top = 90.dp , start = 10.dp , end = 10.dp)
     )
     {
-        Adjust(navController)
+        ExportPassword()
         Spacer(modifier = Modifier.size(10.dp))
-        InfoOf(navController)
+        ImportPassword()
         Spacer(modifier = Modifier.size(10.dp))
-        Logout(navController)
+        ChangeTheme()
     }
 }
 
 @Composable
-private fun Adjust(navController: NavHostController){
+private fun ExportPassword(){
     Row (
         modifier = Modifier.clickable {  }
     ) {
         IconButton(
             onClick = {}
         ) {
-            Image(imageVector = Icons.Filled.Build, contentDescription ="OptionButton")
+            Image(imageVector = Icons.Filled.Share, contentDescription ="Exports Passwords")
             Modifier
                 .fillMaxWidth()
                 .size(70.dp)
 
         }
         Text(
-            text = "Ajustes",
+            text = "Exportar Contraseñas",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
@@ -141,21 +147,21 @@ private fun Adjust(navController: NavHostController){
 }
 
 @Composable
-private fun InfoOf(navController: NavHostController){
+private fun ImportPassword(){
 
     Row (
-        modifier = Modifier.clickable { navController.navigate(AppScreens.InfoScreen.route)  }
+        modifier = Modifier.clickable {   }
     ) {
         IconButton(
             onClick = {}
         ) {
-            Image(imageVector = Icons.Filled.Info, contentDescription ="OptionButton")
+            Image(imageVector = Icons.Filled.Star, contentDescription ="Import Passwords")
             Modifier
                 .fillMaxWidth()
                 .size(70.dp)
         }
         Text(
-            text = "Acerca De",
+            text = "Importar Contraseñas",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
@@ -167,24 +173,22 @@ private fun InfoOf(navController: NavHostController){
 }
 
 @Composable
-private fun Logout(navController: NavHostController){
+private fun ChangeTheme(){
 
     Row (
         modifier = Modifier.clickable {
-            navController.popBackStack()
-            navController.navigate(AppScreens.LoginScreen.route)
         }
     ) {
         IconButton(
             onClick = {}
         ) {
-            Image(imageVector = Icons.Filled.ExitToApp, contentDescription ="Exit Button")
+            Image(imageVector = Icons.Filled.Create, contentDescription ="Change Theme")
             Modifier
                 .fillMaxWidth()
                 .size(70.dp)
         }
         Text(
-            text = "Salir",
+            text = "Cambiar Tema del App",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
