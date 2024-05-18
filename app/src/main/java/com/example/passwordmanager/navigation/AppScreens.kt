@@ -14,4 +14,6 @@ sealed class AppScreens (val route: String){
     object OptionScreen: AppScreens("option_screen")
 
     object InfoScreen: AppScreens("info_screen")
+
+    object AdjustScreen: AppScreens("adjust_screen")
 }

@@ -11,6 +11,7 @@ import com.example.passwordmanager.ui.screens.login.LoginScreen
 import com.example.passwordmanager.ui.screens.login.LoginViewModel
 import com.example.passwordmanager.ui.screens.main.MainScreen
 import com.example.passwordmanager.ui.screens.main.MainViewModel
+import com.example.passwordmanager.ui.screens.option.AdjustScreen
 import com.example.passwordmanager.ui.screens.option.InfoScreen
 import com.example.passwordmanager.ui.screens.option.OptionScreen
 import com.example.passwordmanager.ui.screens.register.RegisterScreen
@@ -54,6 +55,10 @@ fun AppNavigation(){
 
         composable(AppScreens.InfoScreen.route){
             InfoScreen(navController)
+        }
+
+        composable(AppScreens.AdjustScreen.route){
+            AdjustScreen(navController)
         }
 
     }

@@ -117,7 +117,7 @@ private fun BodyContent(navController: NavHostController){
 @Composable
 private fun Adjust(navController: NavHostController){
     Row (
-        modifier = Modifier.clickable {  }
+        modifier = Modifier.clickable { navController.navigate(AppScreens.AdjustScreen.route)  }
     ) {
         IconButton(
             onClick = {}
