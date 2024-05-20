@@ -47,7 +47,6 @@ class LoginViewModel: ViewModel() {
         _email.value = ""
         _password.value = ""
 
-
         navController.navigate(AppScreens.MainScreen.route)
     }
 

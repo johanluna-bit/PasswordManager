@@ -26,6 +26,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -44,7 +45,7 @@ import com.example.passwordmanager.navigation.AppScreens
 fun AddScreen( viewModel: AddViewModel, navController: NavHostController){
     Scaffold (
         topBar = { TopBar(navController) },
-        content = { BodyContent() },
+        content = { BodyContent(viewModel) },
         floatingActionButton = { SaveButton(navController) }
     )
 }
@@ -108,7 +109,14 @@ fun GoBackButton(navController: NavHostController) {
 
 
 @Composable
-private fun BodyContent(){
+private fun BodyContent(viewModel: AddViewModel){
+
+
+    val tittle: String by viewModel.tittle.observeAsState(initial = " ")
+    val user: String by viewModel.user.observeAsState(initial = "")
+    val pass: String by viewModel.password.observeAsState(initial = "")
+    val note: String by viewModel.note.observeAsState(initial = "")
+
 
     Column (
         Modifier
@@ -116,23 +124,23 @@ private fun BodyContent(){
             .padding(top = 90.dp , start = 10.dp , end = 10.dp)
     )
     {
-        TittleField()
+        TittleField(tittle) { viewModel.onTittleChange(it) }
 
         Spacer(modifier = Modifier.padding(15.dp))
-        UserAccountField()
+        UserAccountField(user) { viewModel.onUserChange(it) }
 
         Spacer(modifier = Modifier.padding(15.dp))
-        PasswordField()
+        PasswordField(pass) { viewModel.onPasswordChange(it) }
 
         Spacer(modifier = Modifier.padding(15.dp))
         TypeAccount()
 
         Spacer(modifier = Modifier.padding(15.dp))
-        NoteField()
+        NoteField(note){ viewModel.onNoteChange(it) }
     }
 }
 @Composable
-fun NoteField() {
+fun NoteField(note: String , onTextFieldChange: (String) -> Unit) {
     Column {
         Text(
             text = "Nota:" ,
@@ -142,8 +150,8 @@ fun NoteField() {
         )
 
         TextField(
-            value = " " ,
-            onValueChange = { } ,
+            value = note,
+            onValueChange = { onTextFieldChange(it)} ,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(vertical = 15.dp, horizontal = 20.dp) ,
@@ -200,7 +208,7 @@ fun TypeAccount() {
     }
 }
 @Composable
-fun PasswordField() {
+fun PasswordField(pass: String , onTextFieldChange: (String) -> Unit) {
     Column {
         Text(
             text = "Contraseña:" ,
@@ -210,8 +218,8 @@ fun PasswordField() {
         )
 
         TextField(
-            value = " " ,
-            onValueChange = { } ,
+            value = pass ,
+            onValueChange = { onTextFieldChange(it) } ,
             modifier = Modifier.fillMaxWidth() ,
             singleLine = true ,
         )
@@ -219,7 +227,7 @@ fun PasswordField() {
 }
 
 @Composable
-fun UserAccountField() {
+fun UserAccountField(user: String , onTextFieldChange: (String) -> Unit) {
     Column {
         Text(
             text = "Usuario:" ,
@@ -229,8 +237,8 @@ fun UserAccountField() {
         )
 
         TextField(
-            value = " " ,
-            onValueChange = { } ,
+            value = user ,
+            onValueChange = { onTextFieldChange(it)} ,
             modifier = Modifier.fillMaxWidth() ,
             singleLine = true ,
         )
@@ -238,7 +246,7 @@ fun UserAccountField() {
 }
 
 @Composable
-fun TittleField() {
+fun TittleField(tittle: String , onTextFieldChange: (String) -> Unit) {
 
     Column {
         Text(
@@ -249,8 +257,8 @@ fun TittleField() {
         )
 
         TextField(
-            value = " " ,
-            onValueChange = { } ,
+            value = tittle ,
+            onValueChange = { onTextFieldChange (it) } ,
             modifier = Modifier.fillMaxWidth() ,
             singleLine = true ,
             )
